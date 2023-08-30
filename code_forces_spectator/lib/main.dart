@@ -19,14 +19,14 @@ class CodeForcesSpectator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=>DataBase(),
+      create: (context)=>handlesProvider(),
       child: MaterialApp(
         builder: DevicePreview.appBuilder,
         initialRoute: FriendsListScreen.id,
         routes: {
           LogInScreen.id: (context) => const LogInScreen(),
           FriendsListScreen.id: (context) => FriendsListScreen(),
-          FriendInfoScreen.id: (context) => const FriendInfoScreen(),
+          FriendInfoScreen.id: (context) => FriendInfoScreen(),
           RegisterScreen.id: (context) =>  RegisterScreen(),
         },
       ),

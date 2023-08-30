@@ -1,4 +1,5 @@
 import 'package:code_forces_spectator/Screens/friend_info_screen.dart';
+import 'package:code_forces_spectator/utilities/api_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:code_forces_spectator/utilities/friend_tab.dart';
@@ -21,6 +22,20 @@ class _FriendsListScreenState extends State<FriendsListScreen> {
   int friendsNumber = 0;
   void updateNumber() {
     friendsNumber = friends.length;
+  }
+
+  FixedExtentScrollController scrollController = FixedExtentScrollController();
+
+  @override
+  void initState() {
+    scrollController = FixedExtentScrollController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -89,18 +104,13 @@ class _FriendsListScreenState extends State<FriendsListScreen> {
                 ),
               );
             } else {
-              List<Widget> itemList = friends.map((doc) {
-                return FriendTab(
-                  handle: doc['handle'],
-                  rank: -1,
-                  // Other widget properties
-                );
-              }).toList();
+              List<FriendTab> friendsList = handlesProvider.listMaker(friends);
 
               return ListWheelScrollView(
+                controller: scrollController,
                 magnification: 1.5,
                 useMagnifier: true,
-                physics: FixedExtentScrollPhysics(),
+                physics: const FixedExtentScrollPhysics(),
                 diameterRatio: 1.6,
                 squeeze: 0.6,
                 itemExtent: 75,
@@ -109,7 +119,21 @@ class _FriendsListScreenState extends State<FriendsListScreen> {
                   //   _selectedItemIndex = index;
                   // })
                 },
-                children: itemList,
+                children: friendsList
+                    .map(
+                      (friend) => Container(
+                        child: GestureDetector(
+                          onTap: () async{
+                            var info = await ApiFunctions.getInfo(friend.handle);
+                            Navigator.pushNamed(context, FriendInfoScreen.id,arguments: info);
+                          },
+                          child: Center(
+                            child: friend,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               );
             }
             ;

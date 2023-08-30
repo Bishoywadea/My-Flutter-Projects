@@ -25,5 +25,17 @@ class ApiFunctions {
     }
     return 0;
   }
+  static Future<dynamic> getInfo(var handle) async {
+    http.Response response = await http.get(Uri.parse(
+        'https://codeforces.com/api/user.info?handles=$handle'));
+    if (response.statusCode == 200) {
+      var jsonResponse =
+      convert.jsonDecode(response.body) as Map<String, dynamic>;
+      return jsonResponse;//testing
+    } else {
+      return -1;
+    }
+    return 0;
+  }
 
 }
