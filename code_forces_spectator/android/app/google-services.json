@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637584345010",
+    "project_id": "cfspec-92512",
+    "storage_bucket": "cfspec-92512.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637584345010:android:a00e1974cb7a9730d046ab",
+        "android_client_info": {
+          "package_name": "com.example.code_forces_spectator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637584345010-kvcpk8ukpe8v5bhdvjqfik1aa9hnir4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrsAlUNbX2ATr8uC2A5U7yMO6ZnqBGQF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637584345010-kvcpk8ukpe8v5bhdvjqfik1aa9hnir4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

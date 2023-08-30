@@ -1,28 +1,26 @@
-import 'package:code_forces_spectator/Screens/friend_info_screen.dart';
+import 'package:code_forces_spectator/Screens/friends_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:code_forces_spectator/Screens/login_screen.dart';
 import 'package:code_forces_spectator/utilities/background.dart';
-import 'package:code_forces_spectator/Screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
-  static const String id = "login_Screen";
+class RegisterScreen extends StatefulWidget {
+  static const id = 'register_screen';
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late String handle;
-  late String password;
-  late bool spinner=false;
-
+  String handle = "";
+  String password = "";
+  bool spinner = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: spinner,
@@ -34,7 +32,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
-                  "LOGIN",
+                  "REGISTER",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF2661FA),
@@ -55,7 +53,9 @@ class _LogInScreenState extends State<LogInScreen> {
                     });
                     print(handle); //testing
                   },
-                  decoration: InputDecoration(labelText: "Handle"),
+                  decoration: InputDecoration(
+                      labelText: "ex:<your handle>@<anything>.<yourdomain>"
+                  ),
                 ),
               ),
 
@@ -69,7 +69,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     setState(() {
                       password=value;
                     });
-                    print(password); //testing
+                    print(password);  //testing
                   },
                   decoration: InputDecoration(labelText: "Password"),
                   obscureText: true,
@@ -82,23 +82,29 @@ class _LogInScreenState extends State<LogInScreen> {
                 alignment: Alignment.centerRight,
                 margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                 child: ElevatedButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     setState(() {
-                      spinner=true;
+                      spinner = true;
                     });
-                    print(handle); //testing
+                    print(handle);  //testing
                     print(password); //testing
-                    try{
-                      final user = await _auth.signInWithEmailAndPassword(email: handle, password: password);
+                    try {
+                      final newUser =
+                          await _auth.createUserWithEmailAndPassword(
+                              email: handle, password: password);
                       setState(() {
-                        spinner=false;
+                        spinner = false;
                       });
-                      if(user!=null){
-                        Navigator.pushNamed(context, FriendInfoScreen.id);
+                      if (newUser != null) {
+                        Navigator.pushNamed(context, FriendsListScreen.id);
                       }
-                    }
-                    catch(e){
+                    } catch (e) {
                       print(e);
+                      setState(
+                        () {
+                          spinner = false;
+                        },
+                      );
                     }
                   },
                   style: ButtonStyle(
@@ -121,7 +127,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         ])),
                     padding: const EdgeInsets.all(0),
                     child: Text(
-                      "LOGIN",
+                      "SIGN UP",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
@@ -133,18 +139,16 @@ class _LogInScreenState extends State<LogInScreen> {
                 alignment: Alignment.centerRight,
                 margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                 child: GestureDetector(
-                  onTap: () => {
-                    Navigator.pushNamed(context, RegisterScreen.id)
-                  },
+                  onTap: () => {Navigator.pushNamed(context, LogInScreen.id)},
                   child: Text(
-                    "Don't Have an Account? Sign up",
+                    "Already Have an Account? Sign in",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF2661FA)),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),
