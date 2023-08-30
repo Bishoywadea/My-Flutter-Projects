@@ -5,7 +5,8 @@ import 'tempdata.dart';
 import 'package:provider/provider.dart';
 import 'package:code_forces_spectator/Screens/friends_list_screen.dart';
 class FireBaseFunctions {
-  static Future<dynamic> saveHandle(String handle,String rank) async {
-
+  static   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static Future<dynamic> saveHandle(String handle,int rank) async {
+    _firestore.collection('friends').add({'handle': handle});
   }
 }

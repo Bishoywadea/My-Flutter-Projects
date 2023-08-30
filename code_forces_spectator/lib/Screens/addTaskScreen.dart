@@ -3,14 +3,18 @@ import 'package:code_forces_spectator/utilities/api_functions.dart';
 import 'package:code_forces_spectator/utilities/tempdata.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:code_forces_spectator/utilities/fire_base_functions.dart';
 class AddTaskScreen extends StatefulWidget {
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
-  late String handle;
+  late String handle='';
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +58,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               onTap: () async {
                 final result = await ApiFunctions.checkHandle(handle);
                 if (result == 1) {
-                  Provider.of<DataBase>(context, listen: false)
-                      .Add(handle, 'dummy');
+                  FireBaseFunctions.saveHandle(handle, -1);
                   Navigator.pop(context);
                 } else {
                   Alert(
