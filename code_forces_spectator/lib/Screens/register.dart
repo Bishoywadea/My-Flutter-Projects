@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     print(handle); //testing
                   },
                   decoration: InputDecoration(
-                      labelText: "ex:<your handle>@<anything>.<yourdomain>"
+                      labelText: "Enter Valid Email"
                   ),
                 ),
               ),

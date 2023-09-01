@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:code_forces_spectator/utilities/tempdata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_forces_spectator/Screens/addTaskScreen.dart';
+import 'package:code_forces_spectator/utilities/passed_object.dart';
 
 class FriendsListScreen extends StatefulWidget {
   FriendsListScreen({super.key});
@@ -123,9 +124,13 @@ class _FriendsListScreenState extends State<FriendsListScreen> {
                     .map(
                       (friend) => Container(
                         child: GestureDetector(
-                          onTap: () async{
-                            var info = await ApiFunctions.getInfo(friend.handle);
-                            Navigator.pushNamed(context, FriendInfoScreen.id,arguments: info);
+                          onTap: () async {
+                            var info =
+                                await ApiFunctions.getInfo(friend.handle);
+                            var history =
+                                await ApiFunctions.getHistory(friend.handle);
+                            Navigator.pushNamed(context, FriendInfoScreen.id,
+                                arguments: passedObject(info: info, history: history));
                           },
                           child: Center(
                             child: friend,

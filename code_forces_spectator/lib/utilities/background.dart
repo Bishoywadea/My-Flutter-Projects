@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:lottie/lottie.dart';
 class Background extends StatelessWidget {
   final Widget child;
 
@@ -37,8 +37,8 @@ class Background extends StatelessWidget {
           Positioned(
             top: 50,
             right: 30,
-            child: Image.asset(
-                "assets/images/main.gif",
+            child: Lottie.asset(
+                "assets/images/d0qgDqlQxJ.json",
                 width: size.width * 0.35
             ),
           ),

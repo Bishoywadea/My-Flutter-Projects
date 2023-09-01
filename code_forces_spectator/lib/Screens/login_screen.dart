@@ -55,7 +55,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     });
                     print(handle); //testing
                   },
-                  decoration: InputDecoration(labelText: "Handle"),
+                  decoration: InputDecoration(labelText: "Enter your Email"),
                 ),
               ),
 
