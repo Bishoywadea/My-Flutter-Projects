@@ -96,7 +96,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         spinner = false;
                       });
                       if (newUser != null) {
-                        Navigator.pushNamed(context, FriendsListScreen.id);
+                        User? currentUser = await FirebaseAuth.instance.currentUser;
+                        Navigator.pushNamed(context, FriendsListScreen.id,arguments: currentUser);
                       }
                     } catch (e) {
                       print(e);

@@ -22,7 +22,7 @@ class CodeForcesSpectator extends StatelessWidget {
       create: (context)=>handlesProvider(),
       child: MaterialApp(
         builder: DevicePreview.appBuilder,
-        initialRoute: FriendsListScreen.id,
+        initialRoute: LogInScreen.id,
         routes: {
           LogInScreen.id: (context) => const LogInScreen(),
           FriendsListScreen.id: (context) => FriendsListScreen(),

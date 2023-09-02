@@ -5,6 +5,8 @@ import 'package:code_forces_spectator/Screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import 'friends_list_screen.dart';
+
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -94,7 +96,9 @@ class _LogInScreenState extends State<LogInScreen> {
                         spinner=false;
                       });
                       if(user!=null){
-                        Navigator.pushNamed(context, FriendInfoScreen.id);
+                        User? currentUser = await FirebaseAuth.instance.currentUser;
+                        //print(currentUser);
+                        Navigator.pushNamed(context, FriendsListScreen.id,arguments: currentUser);
                       }
                     }
                     catch(e){
